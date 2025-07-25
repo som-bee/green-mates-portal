@@ -2,6 +2,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   Home,
@@ -15,7 +16,6 @@ import {
   X,
   ChevronDown,
   Shield,
-  Leaf,
   UserCheck,
   Activity,
 } from 'lucide-react';
@@ -126,15 +126,22 @@ export default function Sidebar({ isOpen, onClose, user }: SidebarProps) {
 
       {/* Sidebar */}
       <div
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'
-          }`}
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
       >
         <div className="flex flex-col h-full">
-          {/* Header */}
+          {/* Header - Updated with Logo */}
           <div className="flex items-center justify-between p-6 border-b border-gray-200">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <Leaf className="text-white" size={20} />
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center p-1">
+                <Image
+                  src="/logo.png"
+                  alt="TGM Logo"
+                  width={24}
+                  height={24}
+                  className="object-contain"
+                />
               </div>
               <div>
                 <h1 className="text-lg font-serif font-bold text-primary">TGM Portal</h1>
@@ -152,12 +159,7 @@ export default function Sidebar({ isOpen, onClose, user }: SidebarProps) {
           {/* Navigation */}
           <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
             {filteredItems.map((item) => {
-              
-              // --- START: CORRECTED LOGIC ---
-              // This logic correctly highlights parent tabs and their children.
               const isActive = pathname.startsWith(item.href);
-              // --- END: CORRECTED LOGIC ---
-
               const isExpanded = expandedItems.includes(item.name);
               const hasSubItems = item.subItems && item.subItems.length > 0;
 
@@ -178,7 +180,9 @@ export default function Sidebar({ isOpen, onClose, user }: SidebarProps) {
                       </div>
                       <ChevronDown
                         size={16}
-                        className={`transform transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+                        className={`transform transition-transform ${
+                          isExpanded ? 'rotate-180' : ''
+                        }`}
                       />
                     </button>
                   ) : (
@@ -203,8 +207,6 @@ export default function Sidebar({ isOpen, onClose, user }: SidebarProps) {
                           key={subItem.name}
                           href={subItem.href}
                           className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
-                            // Use startsWith for the sub-item as well for consistency,
-                            // or keep pathname === subItem.href for exact match highlighting.
                             pathname === subItem.href
                               ? 'bg-secondary text-primary font-medium'
                               : 'text-slate-600 hover:bg-gray-50'

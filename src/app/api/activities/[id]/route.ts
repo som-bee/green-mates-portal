@@ -9,9 +9,12 @@ type RouteContext = {
   params: { id: string };
 };
 
-export async function GET(request: NextRequest, { params }: RouteContext) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }  // Inline type here
+) {
   try {
-    const { id } = params;
+    const { id } = await params;
     await dbConnect();
 
     if (!mongoose.Types.ObjectId.isValid(id)) {

@@ -49,7 +49,7 @@ export default function PortalLayout({
 
   return (
     // 2. Wrap the layout with the provider and pass the user session
-    <AuthProvider session={user}>
+    <AuthProvider initialSession={user}>
       <div className="flex h-screen bg-gray-50">
         <Toaster position="top-right" />
         <Sidebar 

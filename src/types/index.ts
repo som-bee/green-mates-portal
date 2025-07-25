@@ -13,7 +13,7 @@ export interface Resource {
   type: 'DOCUMENT' | 'IMAGE' | 'VIDEO' | 'LINK';
   url: string;
   category: 'GUIDELINES' | 'TRAINING' | 'FORMS' | 'REPORTS';
-  
+
   // FIX: Change 'uploadedBy' from a simple string to an object
   uploadedBy: {
     _id: string;
@@ -42,6 +42,8 @@ export interface User {
   membershipType?: 'LIFE' | 'ANNUAL' | 'HONORARY';
   skills?: string[];
   interests?: string[];
+  occupation?: string; // <-- ADD THIS
+  bio?: string;        // <-- ADD THIS
   lastActive?: Date;
 }
 
