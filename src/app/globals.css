@@ -1,0 +1,53 @@
+/* src/app/globals.css */
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #3D8D7A;
+  --color-secondary: #A3D1C6;
+  --color-accent: #B3D8A8;
+  --color-background: #FBFFE4;
+  
+  --font-family-jakarta: var(--font-plus-jakarta-sans), sans-serif;
+  --font-family-work: var(--font-work-sans), sans-serif;
+  --font-family-serif: var(--font-inter), serif;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-background);
+    font-family: var(--font-family-jakarta);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-serif);
+    color: var(--color-primary);
+  }
+
+  p, span, a {
+    font-family: var(--font-family-jakarta);
+    color: rgb(71 85 105); /* slate-700 */
+  }
+}
+
+/* Custom scrollbar styles */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(61, 141, 122, 0.1);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(44, 107, 94, 0.1);
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(61, 141, 122, 0.1) transparent;
+}
