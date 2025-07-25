@@ -1,7 +1,7 @@
-// src/models/Announcement.ts
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IAnnouncement extends Document {
+  _id: mongoose.Types.ObjectId;
   title: string;
   content: string;
   type: 'GENERAL' | 'URGENT' | 'EVENT' | 'ACHIEVEMENT';

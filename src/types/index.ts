@@ -1,5 +1,35 @@
 // src/types/index.ts
+
+export interface Pagination {
+  page: number;
+  limit: number;
+  total: number;
+  pages: number;
+}
+export interface Resource {
+  id: string;
+  title: string;
+  description: string;
+  type: 'DOCUMENT' | 'IMAGE' | 'VIDEO' | 'LINK';
+  url: string;
+  category: 'GUIDELINES' | 'TRAINING' | 'FORMS' | 'REPORTS';
+  
+  // FIX: Change 'uploadedBy' from a simple string to an object
+  uploadedBy: {
+    _id: string;
+    name: string;
+  };
+
+  accessLevel: 'PUBLIC' | 'MEMBERS_ONLY' | 'ADMIN_ONLY';
+
+  // FIX: Add the timestamp properties
+  createdAt: string; // Dates are serialized as strings in JSON
+  updatedAt: string;
+}
+
+
 export interface User {
+  _id: string;
   id: string;
   email: string;
   name: string;
@@ -51,17 +81,6 @@ export interface Announcement {
   attachments?: string[];
 }
 
-export interface Resource {
-  id: string;
-  title: string;
-  description: string;
-  type: 'DOCUMENT' | 'IMAGE' | 'VIDEO' | 'LINK';
-  url: string;
-  category: 'GUIDELINES' | 'TRAINING' | 'FORMS' | 'REPORTS';
-  uploadedBy: string;
-  uploadedAt: Date;
-  accessLevel: 'PUBLIC' | 'MEMBERS_ONLY' | 'ADMIN_ONLY';
-}
 
 export interface DashboardStats {
   totalMembers: number;

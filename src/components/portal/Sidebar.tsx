@@ -152,7 +152,12 @@ export default function Sidebar({ isOpen, onClose, user }: SidebarProps) {
           {/* Navigation */}
           <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
             {filteredItems.map((item) => {
-              const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
+              
+              // --- START: CORRECTED LOGIC ---
+              // This logic correctly highlights parent tabs and their children.
+              const isActive = pathname.startsWith(item.href);
+              // --- END: CORRECTED LOGIC ---
+
               const isExpanded = expandedItems.includes(item.name);
               const hasSubItems = item.subItems && item.subItems.length > 0;
 
@@ -161,10 +166,11 @@ export default function Sidebar({ isOpen, onClose, user }: SidebarProps) {
                   {hasSubItems ? (
                     <button
                       onClick={() => toggleExpanded(item.name)}
-                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left transition-colors ${isActive
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left transition-colors ${
+                        isActive
                           ? 'bg-primary text-white'
                           : 'text-slate-700 hover:bg-gray-100'
-                        }`}
+                      }`}
                     >
                       <div className="flex items-center space-x-3">
                         <item.icon size={20} />
@@ -172,17 +178,17 @@ export default function Sidebar({ isOpen, onClose, user }: SidebarProps) {
                       </div>
                       <ChevronDown
                         size={16}
-                        className={`transform transition-transform ${isExpanded ? 'rotate-180' : ''
-                          }`}
+                        className={`transform transition-transform ${isExpanded ? 'rotate-180' : ''}`}
                       />
                     </button>
                   ) : (
                     <Link
                       href={item.href}
-                      className={`flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors ${isActive
+                      className={`flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors ${
+                        isActive
                           ? 'bg-primary text-white'
                           : 'text-slate-700 hover:bg-gray-100'
-                        }`}
+                      }`}
                     >
                       <item.icon size={20} />
                       <span className="font-medium">{item.name}</span>
@@ -196,10 +202,13 @@ export default function Sidebar({ isOpen, onClose, user }: SidebarProps) {
                         <Link
                           key={subItem.name}
                           href={subItem.href}
-                          className={`block px-3 py-2 text-sm rounded-lg transition-colors ${pathname === subItem.href
+                          className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
+                            // Use startsWith for the sub-item as well for consistency,
+                            // or keep pathname === subItem.href for exact match highlighting.
+                            pathname === subItem.href
                               ? 'bg-secondary text-primary font-medium'
                               : 'text-slate-600 hover:bg-gray-50'
-                            }`}
+                          }`}
                         >
                           {subItem.name}
                         </Link>

@@ -1,6 +1,7 @@
 // src/lib/auth.ts
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { cookies } from 'next/headers';
 import { NextRequest } from 'next/server';
 
 const JWT_SECRET = process.env.JWT_SECRET!;
@@ -29,4 +30,18 @@ export async function getTokenFromRequest(request: NextRequest): Promise<string 
   const token = request.cookies.get('auth-token')?.value || 
                 request.headers.get('authorization')?.replace('Bearer ', '');
   return token || null;
+}
+
+export async function getAuthenticatedUser() {
+  const cookieStore = await cookies(); // Await the promise
+  const token = cookieStore.get('auth-token')?.value;
+  
+  if (!token) return null;
+
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET) as { userId: string, role: string };
+    return decoded;
+  } catch (error) {
+    return null;
+  }
 }

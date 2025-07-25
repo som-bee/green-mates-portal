@@ -2,6 +2,7 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IActivity extends Document {
+   _id: mongoose.Types.ObjectId;
   title: string;
   description: string;
   type: 'WILDLIFE_RESCUE' | 'TREE_PLANTATION' | 'BLOOD_DONATION' | 'AWARENESS' | 'CLEANUP' | 'OTHER';
