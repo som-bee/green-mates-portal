@@ -91,7 +91,7 @@ export default function HomePage() {
                 <ArrowRight size={16} />
               </Link>
               <Link
-                href="/about"
+                href="https://greenmates.org/about"
                 className="border-2 border-primary text-primary px-8 py-3 rounded-full font-medium flex items-center gap-2 hover:bg-primary hover:text-white transition"
               >
                 Learn More
