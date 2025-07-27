@@ -47,14 +47,10 @@ export async function GET(
   }
 }
 
-const updateActivityHandler = async (
-  req: NextRequest & { user: { userId: string, role: string } },
-  { params }: { params: Record<string, unknown> }
-) => {
+const updateActivityHandler = async (req: NextRequest & { user: { userId: string, role: string } }, { params }: RouteContext) => {
   const { userId, role } = req.user;
-  const id = typeof params.id === 'string' ? params.id : '';
-
-  const activity = await Activity.findById(id);
+  
+  const activity = await Activity.findById(params.id);
   if (!activity) {
     return NextResponse.json({ error: 'Activity not found' }, { status: 404 });
   }
@@ -68,22 +64,19 @@ const updateActivityHandler = async (
   }
 
   const body = await req.json();
-  const updatedActivity = await Activity.findByIdAndUpdate(id, body, { new: true }).lean<IActivity>();
-
+  const updatedActivity = await Activity.findByIdAndUpdate(params.id, body, { new: true }).lean<IActivity>();
+  
   revalidatePath('/activities');
-  revalidatePath(`/activities/${id}`);
+  revalidatePath(`/activities/${params.id}`);
 
-  return NextResponse.json({ activity: updatedActivity });
+  return NextResponse.json({ message: 'Activity updated successfully!', activity: updatedActivity });
 };
 
-const deleteActivityHandler = async (
-  req: NextRequest & { user: { userId: string, role: string } },
-  { params }: { params: Record<string, unknown> }
-) => {
+// --- UPDATE: Modified DELETE Handler ---
+const deleteActivityHandler = async (req: NextRequest & { user: { userId: string, role: string } }, { params }: RouteContext) => {
   const { userId, role } = req.user;
-  const id = typeof params.id === 'string' ? params.id : '';
 
-  const activity = await Activity.findById(id);
+  const activity = await Activity.findById(params.id);
   if (!activity) {
     return NextResponse.json({ error: 'Activity not found' }, { status: 404 });
   }
@@ -96,7 +89,7 @@ const deleteActivityHandler = async (
     return NextResponse.json({ error: 'Forbidden: You are not authorized to delete this activity.' }, { status: 403 });
   }
 
-  await Activity.findByIdAndDelete(id);
+  await Activity.findByIdAndDelete(params.id);
 
   revalidatePath('/activities');
   return NextResponse.json({ message: 'Activity deleted successfully' });

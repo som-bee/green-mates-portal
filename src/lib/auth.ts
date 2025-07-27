@@ -14,14 +14,14 @@ export async function verifyPassword(password: string, hashedPassword: string): 
   return bcrypt.compare(password, hashedPassword);
 }
 
-export function generateToken(payload: Record<string, unknown>): string {
+export function generateToken(payload: any): string {
   return jwt.sign(payload, JWT_SECRET, { expiresIn: '7d' });
 }
 
-export function verifyToken(token: string): jwt.JwtPayload | string | null {
+export function verifyToken(token: string): any {
   try {
     return jwt.verify(token, JWT_SECRET);
-  } catch{
+  } catch (error) {
     return null;
   }
 }
@@ -41,7 +41,7 @@ export async function getAuthenticatedUser() {
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as { userId: string, role: string };
     return decoded;
-  } catch {
+  } catch (error) {
     return null;
   }
 }

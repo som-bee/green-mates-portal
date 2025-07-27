@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect, useCallback } from 'react';
 import { MemberDataFrontend } from '@/types/member';
 import toast from 'react-hot-toast';
@@ -13,7 +12,7 @@ export function useMembers(initialParams: URLSearchParams) {
     try {
       const response = await fetch(`/api/members?${initialParams.toString()}`);
       // ... handle response
-    } catch {
+    } catch (error) {
       toast.error("Error fetching members");
     } finally {
       setLoading(false);

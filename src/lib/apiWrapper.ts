@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import { getTokenFromRequest, verifyToken } from '@/lib/auth';
-
+import { IUser } from '@/models/User';
 
 type Role = 'MEMBER' | 'ADMIN' | 'SUPER_ADMIN';
 
@@ -12,11 +12,11 @@ interface AuthenticatedRequest extends NextRequest {
 
 type ApiHandler = (
   req: AuthenticatedRequest,
-  params: { params: Record<string, unknown> }
+  params: { params: any }
 ) => Promise<NextResponse>;
 
 export function withAuth(roles: Role[], handler: ApiHandler) {
-  return async (request: NextRequest, params: { params: Record<string, unknown> }) => {
+  return async (request: NextRequest, params: { params: any }) => {
     try {
       await dbConnect();
 
@@ -25,8 +25,8 @@ export function withAuth(roles: Role[], handler: ApiHandler) {
         return NextResponse.json({ error: 'Authentication required' }, { status: 401 });
       }
 
-      const decoded = verifyToken(token) as { userId: string; role: Role } | null;
-      if (!decoded || typeof decoded !== 'object' || !('role' in decoded)) {
+      const decoded = verifyToken(token);
+      if (!decoded) {
         return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
       }
 
