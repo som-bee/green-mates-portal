@@ -59,7 +59,26 @@ function StatCard({
 }
 
 export default function ReportsPage() {
-  const [reportData, setReportData] = useState<any>(null);
+  interface ReportData {
+    stats: {
+      totalMembers: number;
+      newMembersInPeriod: number;
+      totalActivitiesInPeriod: number;
+      completedActivitiesInPeriod: number;
+    };
+    charts: {
+      membersByRole: { name: string; value: number }[];
+      activitiesByType: { name: string; value: number }[];
+    };
+    impact: {
+      treesPlanted?: number;
+      bloodUnitsCollected?: number;
+      animalsRescued?: number;
+      wasteCollected?: number;
+    };
+  }
+  
+    const [reportData, setReportData] = useState<ReportData | null>(null);
   const [loading, setLoading] = useState(true);
   const [startDate, setStartDate] = useState<Date | null>(
     new Date(new Date().setMonth(new Date().getMonth() - 1))
@@ -153,7 +172,7 @@ export default function ReportsPage() {
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie data={reportData.charts.membersByRole} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} label >
-                {reportData.charts.membersByRole.map((entry: any, index: number) => (
+                {reportData.charts.membersByRole.map((entry: { name: string; value: number }, index: number) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>

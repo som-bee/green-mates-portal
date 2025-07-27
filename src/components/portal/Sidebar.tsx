@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // src/components/portal/Sidebar.tsx
 'use client';
 import { useState } from 'react';
@@ -105,7 +106,7 @@ export default function Sidebar({ isOpen, onClose, user }: SidebarProps) {
         toast.success('Logged out successfully');
         router.push('/login');
       }
-    } catch (error) {
+    } catch  {
       toast.error('Error logging out');
     }
   };

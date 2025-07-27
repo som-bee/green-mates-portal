@@ -1,11 +1,15 @@
 // src/components/portal/Header.tsx
 'use client';
-import { Bell, Menu, Search, User, MessageSquare } from 'lucide-react';
+import { Bell, Menu, Search, MessageSquare } from 'lucide-react';
 import { useState } from 'react';
+
+interface User {
+  name?: string;
+}
 
 interface HeaderProps {
   onMenuClick: () => void;
-  user: any;
+  user: User;
 }
 
 export default function Header({ onMenuClick, user }: HeaderProps) {

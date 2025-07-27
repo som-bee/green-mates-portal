@@ -13,7 +13,7 @@ export async function populateMemberApprovals(member: MemberLean): Promise<Membe
         .lean<PopulatedUser>();
       
       populatedMember.approvedBy = approver || null;
-    } catch (error) {
+    } catch {
       console.warn('Could not populate approvedBy for member:', member._id);
       populatedMember.approvedBy = null;
     }
@@ -29,7 +29,7 @@ export async function populateMemberApprovals(member: MemberLean): Promise<Membe
         .lean<PopulatedUser>();
       
       populatedMember.rejectedBy = rejector || null;
-    } catch (error) {
+    } catch {
       console.warn('Could not populate rejectedBy for member:', member._id);
       populatedMember.rejectedBy = null;
     }

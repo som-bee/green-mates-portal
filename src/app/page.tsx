@@ -12,7 +12,6 @@ import {
   Heart,
   Shield,
   CheckCircle,
-  ChevronRight,
   Quote,
   Star,
   ExternalLink,

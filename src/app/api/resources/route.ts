@@ -5,11 +5,11 @@ import { withAuth } from '@/lib/apiWrapper';
 import { getAuthenticatedUser } from '@/lib/auth';
 
 // GET: List resources based on user role
-export async function GET(request: NextRequest) {
+export async function GET() {
   await dbConnect();
   const session = await getAuthenticatedUser();
   
-  let query: any = { accessLevel: 'PUBLIC' };
+  let query: Record<string, unknown> = { accessLevel: 'PUBLIC' };
   
   if (session) {
     // Logged-in members can see PUBLIC and MEMBERS_ONLY

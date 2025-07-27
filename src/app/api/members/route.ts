@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '10');
 
     // Build query
-    let query: any = {};
+    const query: Record<string, unknown> = {};
     if (status) query.status = status;
     if (role) query.role = role;
     if (search) {

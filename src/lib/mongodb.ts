@@ -12,11 +12,17 @@ interface CachedConnection {
   promise: Promise<typeof mongoose> | null;
 }
 
+// Extend NodeJS.Global to include mongoose cache
+declare global {
+  // eslint-disable-next-line no-var
+  var mongoose: CachedConnection | undefined;
+}
+
 // Use a module-level cache instead of global
-let cached: CachedConnection = (global as any).mongoose || { conn: null, promise: null };
+let cached: CachedConnection = global.mongoose || { conn: null, promise: null };
 
 if (!cached) {
-  cached = (global as any).mongoose = { conn: null, promise: null };
+  cached = global.mongoose = { conn: null, promise: null };
 }
 
 async function dbConnect(): Promise<typeof mongoose> {

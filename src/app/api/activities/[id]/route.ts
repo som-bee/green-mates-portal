@@ -47,10 +47,14 @@ export async function GET(
   }
 }
 
-const updateActivityHandler = async (req: NextRequest & { user: { userId: string, role: string } }, { params }: RouteContext) => {
+const updateActivityHandler = async (
+  req: NextRequest & { user: { userId: string, role: string } },
+  { params }: { params: Record<string, unknown> }
+) => {
   const { userId, role } = req.user;
-  
-  const activity = await Activity.findById(params.id);
+  const id = typeof params.id === 'string' ? params.id : '';
+
+  const activity = await Activity.findById(id);
   if (!activity) {
     return NextResponse.json({ error: 'Activity not found' }, { status: 404 });
   }
@@ -64,19 +68,22 @@ const updateActivityHandler = async (req: NextRequest & { user: { userId: string
   }
 
   const body = await req.json();
-  const updatedActivity = await Activity.findByIdAndUpdate(params.id, body, { new: true }).lean<IActivity>();
-  
-  revalidatePath('/activities');
-  revalidatePath(`/activities/${params.id}`);
+  const updatedActivity = await Activity.findByIdAndUpdate(id, body, { new: true }).lean<IActivity>();
 
-  return NextResponse.json({ message: 'Activity updated successfully!', activity: updatedActivity });
+  revalidatePath('/activities');
+  revalidatePath(`/activities/${id}`);
+
+  return NextResponse.json({ activity: updatedActivity });
 };
 
-// --- UPDATE: Modified DELETE Handler ---
-const deleteActivityHandler = async (req: NextRequest & { user: { userId: string, role: string } }, { params }: RouteContext) => {
+const deleteActivityHandler = async (
+  req: NextRequest & { user: { userId: string, role: string } },
+  { params }: { params: Record<string, unknown> }
+) => {
   const { userId, role } = req.user;
+  const id = typeof params.id === 'string' ? params.id : '';
 
-  const activity = await Activity.findById(params.id);
+  const activity = await Activity.findById(id);
   if (!activity) {
     return NextResponse.json({ error: 'Activity not found' }, { status: 404 });
   }
@@ -89,7 +96,7 @@ const deleteActivityHandler = async (req: NextRequest & { user: { userId: string
     return NextResponse.json({ error: 'Forbidden: You are not authorized to delete this activity.' }, { status: 403 });
   }
 
-  await Activity.findByIdAndDelete(params.id);
+  await Activity.findByIdAndDelete(id);
 
   revalidatePath('/activities');
   return NextResponse.json({ message: 'Activity deleted successfully' });
