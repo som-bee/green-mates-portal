@@ -2,6 +2,7 @@ import { Inter } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
 import { Quote } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -48,6 +49,8 @@ export default function AuthLayout({
           
           <div className="relative z-10 text-white space-y-8 max-w-lg">
             {/* Logo and Title */}
+             <Link href='/'>
+             
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/30 p-2">
                 <Image
@@ -66,6 +69,7 @@ export default function AuthLayout({
                 <p className="text-lg opacity-80">Member & Admin Portal</p>
               </div>
             </div>
+            </Link>
 
             {/* Divider */}
             <div className="w-1/4 h-px bg-white/30"></div>
@@ -74,7 +78,7 @@ export default function AuthLayout({
             <div className="bg-black/20 p-8 rounded-2xl backdrop-blur-sm border border-white/20 shadow-lg">
               <Quote className="text-white/50 mb-4" size={32} />
               <blockquote className="text-xl italic leading-relaxed opacity-90">
-                "The greatest threat to our planet is the belief that someone else will save it. We are the ones we've been waiting for."
+                &quot;The greatest threat to our planet is the belief that someone else will save it. We are the ones we&apos;ve been waiting for.&quot;
               </blockquote>
               <p className="text-right mt-4 font-semibold opacity-70">— Robert Swan, OBE</p>
             </div>

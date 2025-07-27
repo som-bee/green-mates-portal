@@ -1,6 +1,6 @@
 // src/app/(portal)/members/page.tsx
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { 
   Search, 
   Filter, 
@@ -47,11 +47,7 @@ export default function MembersPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [selectedMembers, setSelectedMembers] = useState<string[]>([]);
 
-  useEffect(() => {
-    fetchMembers();
-  }, [currentPage, statusFilter, roleFilter, searchQuery]);
-
-  const fetchMembers = async () => {
+  const fetchMembers = useCallback(async () => {
     try {
       const params = new URLSearchParams({
         page: currentPage.toString(),
@@ -75,7 +71,11 @@ export default function MembersPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, statusFilter, roleFilter, searchQuery]);
+
+  useEffect(() => {
+    fetchMembers();
+  }, [fetchMembers]);
 
   const handleApprove = async (memberId: string, membershipType: string = 'ANNUAL') => {
     try {

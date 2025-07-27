@@ -34,12 +34,14 @@ export default function HomePage() {
       {/* NAV */}
       <nav className="backdrop-blur border-b border-secondary/10 sticky top-0 z-40 bg-white/85">
         <div className="container mx-auto px-6 py-3 flex items-center justify-between">
+          <Link href={'/'}>
           <div className="flex items-center space-x-3">
             <div className="w-11 h-11 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center shadow-sm p-2">
               <Image src="/logo.png" alt="TGM Logo" width={36} height={36} className="object-contain" />
             </div>
             <span className="font-serif font-bold text-xl text-primary">TGM Portal</span>
           </div>
+          </Link>
           <div className="flex space-x-3 items-center">
             <a
               href="https://greenmates.org"
@@ -298,7 +300,7 @@ export default function HomePage() {
                   <Quote className="text-primary w-12 h-12 shine-icon" />
                   <div className="shine-layer absolute inset-0 bg-white opacity-0 group-hover:opacity-30 transition-opacity rounded-full pointer-events-none" />
                 </div>
-                <p className="text-xl text-slate-700 mb-6 italic flex-1">"{t.quote}"</p>
+                <p className="text-xl text-slate-700 mb-6 italic flex-1">&quot;{t.quote}&quot;</p>
                 <div className="flex items-center mt-3">
                   <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white font-bold text-lg mr-3">{t.author.charAt(0)}</div>
                   <div className="text-left">

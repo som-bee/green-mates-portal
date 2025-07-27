@@ -37,7 +37,7 @@ export default function CreateAnnouncementPage() {
       } else {
         toast.error(data.error || 'Failed to post announcement.');
       }
-    } catch (error) {
+    } catch {
       toast.error('An error occurred.');
     } finally {
       setLoading(false);

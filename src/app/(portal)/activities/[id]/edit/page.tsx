@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
@@ -25,7 +26,7 @@ export default function EditActivityPage() {
       const date = new Date(data.activity.date);
       date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
       setFormData({ ...data.activity, date: date.toISOString().slice(0, 16) });
-    } catch (e) {
+    } catch {
       toast.error('Could not load activity data.');
       router.push('/activities');
     } finally {
@@ -58,7 +59,7 @@ export default function EditActivityPage() {
       } else {
         toast.error(data.error || 'Failed to update activity.');
       }
-    } catch (error) {
+    } catch{
       toast.error('An error occurred.');
     } finally {
       setLoading(false);

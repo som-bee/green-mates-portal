@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Edit, Trash, Calendar, MapPin, Users, User, Shield } from 'lucide-react';
+import { ArrowLeft, Edit, Trash, Calendar, MapPin, Users, Shield } from 'lucide-react';
 import toast from 'react-hot-toast';
 import type { Activity } from '@/types';
 import { useAuth } from '@/components/AuthProvider';
@@ -30,7 +30,7 @@ export default function ActivityDetailsPage() {
         toast.error('Activity not found.');
         router.push('/activities');
       }
-    } catch (error) {
+    } catch {
       toast.error('Failed to fetch activity details.');
     } finally {
       setLoading(false);
@@ -39,7 +39,7 @@ export default function ActivityDetailsPage() {
 
   useEffect(() => {
     fetchActivityDetails();
-  }, [id]); // Only run once on mount
+  }, [id, fetchActivityDetails]); // Only run once on mount
 
   // --- NEW: Logic for Join/Leave Button ---
   const handleJoinLeave = async () => {
@@ -53,7 +53,7 @@ export default function ActivityDetailsPage() {
         } else {
             toast.error(data.error || "An error occurred.");
         }
-    } catch (error) {
+    } catch {
         toast.error("Could not perform action.");
     } finally {
         setIsSubmitting(false);
@@ -76,7 +76,7 @@ const handleDelete = async () => {
                 const data = await response.json();
                 toast.error(data.error || 'Failed to delete activity.');
             }
-        } catch (error) {
+        } catch {
             toast.error('An error occurred during deletion.');
         }
     }

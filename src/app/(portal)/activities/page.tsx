@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
@@ -52,7 +53,7 @@ export default function ActivitiesPage() {
       } else {
         toast.error('Failed to fetch activities.');
       }
-    } catch (error) {
+    } catch {
       toast.error('An error occurred while fetching activities.');
     } finally {
       setLoading(false);

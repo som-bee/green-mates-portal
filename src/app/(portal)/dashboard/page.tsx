@@ -114,7 +114,7 @@ export default function DashboardPage() {
           Welcome back, {user?.name?.split(' ')[0]}! 👋
         </h1>
         <p className="text-lg opacity-90">
-          Here's what's happening with Tarakeswar Green Mates today.
+          Here&apos;s what&apos;s happening with Tarakeswar Green Mates today.
         </p>
         {isAdmin && stats?.pendingApprovals && stats.pendingApprovals > 0 && (
           <div className="mt-4 flex items-center space-x-2 bg-white/20 rounded-lg p-3">

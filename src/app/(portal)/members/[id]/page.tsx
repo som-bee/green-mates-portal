@@ -63,11 +63,6 @@ export default function MemberDetailsPage() {
   const [member, setMember] = useState<MemberDetails | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (params.id) {
-      fetchMemberDetails(params.id as string);
-    }
-  }, [params.id]);
 
   const fetchMemberDetails = async (memberId: string) => {
     try {
@@ -87,6 +82,13 @@ export default function MemberDetailsPage() {
       setLoading(false);
     }
   };
+
+    useEffect(() => {
+    if (params.id) {
+      fetchMemberDetails(params.id as string);
+    }
+  }, [params.id, fetchMemberDetails]);
+
 
   const getStatusBadge = (status: string) => {
     const styles = {

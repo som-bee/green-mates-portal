@@ -41,7 +41,7 @@ export default function CreateActivityPage() {
       } else {
         toast.error(data.error || 'Failed to create activity.');
       }
-    } catch (error) {
+    } catch {
       toast.error('An error occurred.');
     } finally {
       setLoading(false);

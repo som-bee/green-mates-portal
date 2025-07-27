@@ -56,7 +56,7 @@ export default function CreateMemberPage() {
       } else {
         toast.error(data.error || 'Failed to create member');
       }
-    } catch (error) {
+    } catch  {
       toast.error('Network error. Please try again.');
     } finally {
       setLoading(false);

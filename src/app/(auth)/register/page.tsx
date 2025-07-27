@@ -8,12 +8,10 @@ import {
   Mail, 
   Lock, 
   Phone, 
-  MapPin, 
-  FileText, 
+  MapPin,  
   Calendar,
   Briefcase,
   Heart,
-  Users
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -79,7 +77,7 @@ export default function RegisterPage() {
       } else {
         toast.error(data.error || 'Registration failed');
       }
-    } catch (error) {
+    } catch {
       toast.error('Network error. Please try again.');
     } finally {
       setLoading(false);
@@ -421,7 +419,7 @@ export default function RegisterPage() {
               <h4 className="font-medium text-yellow-800 mb-2">Application Review Process</h4>
               <ul className="text-sm text-yellow-700 space-y-1">
                 <li>• Your application will be reviewed by our admin team</li>
-                <li>• You'll receive an email notification about the status</li>
+                <li>• You&apos;ll receive an email notification about the status</li>
                 <li>• The review process typically takes 2-3 business days</li>
                 <li>• You can login once your application is approved</li>
               </ul>

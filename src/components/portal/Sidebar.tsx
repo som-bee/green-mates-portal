@@ -133,6 +133,8 @@ export default function Sidebar({ isOpen, onClose, user }: SidebarProps) {
         <div className="flex flex-col h-full">
           {/* Header - Updated with Logo */}
           <div className="flex items-center justify-between p-6 border-b border-gray-200">
+             <Link href={"/"}>
+             
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 rounded-lg flex items-center justify-center p-1">
                 <Image
@@ -148,6 +150,7 @@ export default function Sidebar({ isOpen, onClose, user }: SidebarProps) {
                 <p className="text-xs text-slate-500">Green Mates</p>
               </div>
             </div>
+            </Link>
             <button
               onClick={onClose}
               className="lg:hidden text-slate-400 hover:text-slate-600"

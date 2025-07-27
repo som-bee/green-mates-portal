@@ -37,7 +37,7 @@ export default function LoginPage() {
       } else {
         toast.error(data.error || 'Login failed');
       }
-    } catch (error) {
+    } catch {
       toast.error('Network error. Please try again.');
     } finally {
       setLoading(false);
