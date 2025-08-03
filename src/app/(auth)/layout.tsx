@@ -72,7 +72,7 @@ export default function AuthLayout({
             </Link>
 
             {/* Divider */}
-            <div className="w-1/4 h-px bg-white/30"></div>
+            <div className="w-1/4 h-px"></div>
 
             {/* Featured Quote / Testimonial */}
             <div className="bg-black/20 p-8 rounded-2xl backdrop-blur-sm border border-white/20 shadow-lg">
